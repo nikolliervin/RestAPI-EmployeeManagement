@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RestAPI_Kreatx.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace RestAPI_Kreatx.Data
 {
@@ -13,11 +12,6 @@ namespace RestAPI_Kreatx.Data
 
         }
 
-        [Required(ErrorMessage = "A first name is required")]
-        public string FirstName { get; set; }
-
-        [Required(ErrorMessage = "A last name is required")]
-        public string LastName { get; set; }
 
 
 
