@@ -36,7 +36,6 @@ namespace RestAPI_Kreatx.Controllers
         [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult Welcome()
         {
-
             return Ok($"Welcome {GetHttpClaims()[0]}, your role is: {GetHttpClaims()[1]}");
         }
 

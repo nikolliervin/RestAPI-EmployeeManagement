@@ -12,10 +12,12 @@ namespace RestAPI_Kreatx.Models
         [StringLength(40)]
         [DisplayName("Project Name")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "Project open tasks checking is required")]
+        public bool HasOpenTasks { get; set; }
 
         [Required(ErrorMessage = "UserID is required")]
         [DisplayName("User Id")]
-        public APIUser User { get; set; }
+        public int UserId { get; set; }
 
     }
 }

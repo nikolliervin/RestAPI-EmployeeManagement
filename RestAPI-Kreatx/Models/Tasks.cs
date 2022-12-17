@@ -7,6 +7,7 @@ namespace RestAPI_Kreatx.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required(ErrorMessage = "Task name is required")]
         [DisplayName("Task Name")]
         [StringLength(40)]
@@ -17,9 +18,11 @@ namespace RestAPI_Kreatx.Models
         [StringLength(120)]
         public string TaskDesc { get; set; }
 
-        [Required(ErrorMessage = "User Id cannot be null")]
-        public Projects Project { get; set; }
+
         [Required(ErrorMessage = "Project Id cannot be null")]
-        public APIUser User { get; set; }
+        public int ProjectId { get; set; }
+
+        [Required(ErrorMessage = "User Id cannot be null")]
+        public int UserId { get; set; }
     }
 }
