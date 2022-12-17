@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RestAPI_Kreatx.Models;
 
 namespace RestAPI_Kreatx.Data
 {
@@ -8,5 +9,9 @@ namespace RestAPI_Kreatx.Data
         {
 
         }
+
+        public DbSet<Tasks> Tasks { get; set; }
+
+        public DbSet<Projects> Projects { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace RestAPI_Kreatx
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = Configuration["JWT:Issuer"],
                         ValidAudience = Configuration["JWT:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JTW:Key"]))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("U1S0vyuFBEMKDZYJLXesbahxkgRhJcDIG4zWB0Ul"))
                     };
                 });
             services.AddIdentity<APIUser, APIUserRole>(options =>
@@ -72,6 +72,8 @@ namespace RestAPI_Kreatx
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
+
 
             app.UseEndpoints(endpoints =>
             {

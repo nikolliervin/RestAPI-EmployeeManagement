@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using RestAPI_Kreatx.Data;
 using RestAPI_Kreatx.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -21,15 +20,12 @@ namespace RestAPI_Kreatx.Controllers
         private readonly IConfiguration _config;
         private UserManager<APIUser> _userManager;
         private SignInManager<APIUser> _signInManager;
-        private readonly APIIdentityContext _identity;
-        private RoleManager<APIUserRole> _roleManager;
 
         public LoginController(IConfiguration config, SignInManager<APIUser> signInManager, UserManager<APIUser> userManager, RoleManager<APIUserRole> roleManager = null)
         {
             _config = config;
             _signInManager = signInManager;
             _userManager = userManager;
-            _roleManager = roleManager;
         }
 
 
@@ -38,19 +34,19 @@ namespace RestAPI_Kreatx.Controllers
         //{
         //    var user = new APIUser
         //    {
-        //        UserName = "user01",
-        //        Email = "user01@api.com",
+        //        UserName = "admin",
+        //        Email = "admin@api.com",
 
         //    };
 
         //    await _userManager.CreateAsync(user, "Apiuser1.!");
         //    var Employee = new APIUserRole
         //    {
-        //        Name = "Employee",
-        //        NormalizedName = "EMPLOYEE"
+        //        Name = "Admin",
+        //        NormalizedName = "ADMIN"
         //    };
         //    await _roleManager.CreateAsync(Employee);
-        //    await _userManager.AddToRoleAsync(user, "Employee");
+        //    await _userManager.AddToRoleAsync(user, "Admin");
         //    return Ok();
         //}
         [AllowAnonymous]
@@ -68,7 +64,10 @@ namespace RestAPI_Kreatx.Controllers
             {
                 var result = await _signInManager.PasswordSignInAsync(userFound, user.password, false, false);
                 if (result.Succeeded)
-                    return Ok(GenerateToken(userFound));
+                {
+                    var token = GenerateToken(userFound).Result;
+                    return Ok(token);
+                }
                 else
                     return StatusCode(400, "Passowrd or username was not correct");
             }
@@ -85,7 +84,7 @@ namespace RestAPI_Kreatx.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier,user.UserName),
                 new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.Role,userRole.ToString())
+                new Claim(ClaimTypes.Role,userRole[0].ToString())
             };
 
             var token = new JwtSecurityToken(_config["JWT:Issuer"],
