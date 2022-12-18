@@ -18,6 +18,10 @@ namespace RestAPI_Kreatx.Models
         [StringLength(120)]
         public string TaskDesc { get; set; }
 
+        [Required(ErrorMessage = "Task status is required")]
+        [DisplayName("Task Status")]
+        public string TaskStatus { get; set; }
+
 
         [Required(ErrorMessage = "Project Id cannot be null")]
         public int ProjectId { get; set; }

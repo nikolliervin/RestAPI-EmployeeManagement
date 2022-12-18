@@ -22,8 +22,9 @@ namespace RestAPI_Kreatx.Controllers
         private UserManager<APIUser> _userManager;
         private APIIdentityContext _identity;
         private SignInManager<APIUser> _signInManager;
-        private RoleManager<APIUserRole> _roleManager;
         private readonly IEmployee _employee;
+        private RoleManager<APIUserRole> _roleManager;
+
 
         public HomeController(IConfiguration config, UserManager<APIUser> userManager, APIIdentityContext identity, SignInManager<APIUser> signInManager, IEmployee employee, RoleManager<APIUserRole> roleManager = null)
         {
@@ -47,6 +48,12 @@ namespace RestAPI_Kreatx.Controllers
         public IActionResult GetProfileData()
         {
             return Ok(_employee.GetProfileData(GetUser()));
+        }
+
+        [HttpPost("UpdateProfilePicture")]
+        public IActionResult UpdateProfilePicture([FromBody] ProfilePicture profilePicture)
+        {
+            return Ok(_employee.UpdateProfilePicture(profilePicture, GetUser()));
         }
 
         private List<string> GetHttpClaims()

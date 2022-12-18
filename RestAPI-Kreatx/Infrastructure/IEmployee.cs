@@ -5,13 +5,13 @@ namespace RestAPI_Kreatx.Infrastructure
 {
     public interface IEmployee
     {
-        void UpdateProfilePicture([FromBody] string picture);
+        IActionResult UpdateProfilePicture([FromBody] ProfilePicture profilePicture, APIUser user);
 
         APIUser GetProfileData([FromBody] APIUser user);
 
         void CreateTask([FromBody] Tasks task);
 
-        void UpdateTask([FromBody] Tasks task);
+        IActionResult UpdateTask([FromBody] Tasks task);
 
         void AssignTaskTo([FromBody] Tasks task, [FromBody] APIUser user);
 

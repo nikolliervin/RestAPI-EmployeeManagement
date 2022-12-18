@@ -1,6 +1,8 @@
-﻿using RestAPI_Kreatx.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using RestAPI_Kreatx.Data;
 using RestAPI_Kreatx.Infrastructure;
 using RestAPI_Kreatx.Models;
+
 
 namespace RestAPI_Kreatx.Services
 {
@@ -13,6 +15,7 @@ namespace RestAPI_Kreatx.Services
             _db = db;
             _identity = identity;
         }
+
         void IEmployee.AssignTaskTo(Tasks task, APIUser user)
         {
             throw new System.NotImplementedException();
@@ -34,17 +37,30 @@ namespace RestAPI_Kreatx.Services
             throw new System.NotImplementedException();
         }
 
-        void IEmployee.UpdateProfilePicture(string picture)
+        IActionResult IEmployee.UpdateProfilePicture([FromBody] ProfilePicture profilePicture, [FromBody] APIUser user)
         {
-            throw new System.NotImplementedException();
+            var curretUser = _identity.Users.Find(user.Id);
+
+            if (profilePicture == null)
+                return new StatusCodeResult(404);
+            else
+            {
+                curretUser.UserProfilePicture = profilePicture.Name;
+                curretUser.ProfilePictureUrl = profilePicture.FileUrl;
+                _identity.SaveChanges();
+            }
+            return new JsonResult(200, "Ok!");
+
         }
 
-        void IEmployee.UpdateTask(Tasks task)
-        {
-            throw new System.NotImplementedException();
-        }
+
 
         void IEmployee.ViewTask(Tasks task)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        IActionResult IEmployee.UpdateTask(Tasks task)
         {
             throw new System.NotImplementedException();
         }
