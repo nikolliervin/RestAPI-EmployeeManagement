@@ -8,7 +8,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RestAPI_Kreatx.Data;
+using RestAPI_Kreatx.Infrastructure;
 using RestAPI_Kreatx.Models;
+using RestAPI_Kreatx.Services;
 using System.Text;
 
 namespace RestAPI_Kreatx
@@ -51,6 +53,7 @@ namespace RestAPI_Kreatx
             .AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddMvc();
+            services.AddTransient<IEmployee, EmployeeRepo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestAPI_Kreatx", Version = "v1" });
