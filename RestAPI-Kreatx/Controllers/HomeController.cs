@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using RestAPI_Kreatx.Data;
 using RestAPI_Kreatx.Infrastructure;
 using RestAPI_Kreatx.Models;
@@ -18,23 +16,15 @@ namespace RestAPI_Kreatx.Controllers
 
     public class HomeController : ControllerBase
     {
-        private readonly IConfiguration _config;
-        private UserManager<APIUser> _userManager;
         private APIIdentityContext _identity;
-        private SignInManager<APIUser> _signInManager;
         private readonly IEmployee _employee;
-        private RoleManager<APIUserRole> _roleManager;
 
 
-        public HomeController(IConfiguration config, UserManager<APIUser> userManager, APIIdentityContext identity, SignInManager<APIUser> signInManager, IEmployee employee, RoleManager<APIUserRole> roleManager = null)
+
+        public HomeController(APIIdentityContext identity, IEmployee employee)
         {
-            _config = config;
-            _userManager = userManager;
-            _signInManager = signInManager;
             _identity = identity;
-            _roleManager = roleManager;
             _employee = employee;
-
         }
 
         [HttpGet("Welcome")]
@@ -45,15 +35,31 @@ namespace RestAPI_Kreatx.Controllers
         }
 
         [HttpGet("Profile")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+
         public IActionResult GetProfileData()
         {
             return Ok(_employee.GetProfileData(GetUser()));
         }
 
         [HttpPost("UpdateProfilePicture")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult UpdateProfilePicture([FromBody] ProfilePicture profilePicture)
         {
-            return Ok(_employee.UpdateProfilePicture(profilePicture, GetUser()));
+            if (ModelState.IsValid)
+                return Ok(_employee.UpdateProfilePicture(profilePicture, GetUser()));
+            else
+                return StatusCode(400);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("UpdateProfileData")]
+        public IActionResult UpdateProfileData([FromBody] EmployeeProfile profileData)
+        {
+            if (ModelState.IsValid)
+                return Ok(_employee.UpdateProfileData(profileData, GetUser()));
+            else
+                return StatusCode(400);
         }
 
         private List<string> GetHttpClaims()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestAPI_Kreatx.Models;
+using System.Collections.Generic;
 
 namespace RestAPI_Kreatx.Infrastructure
 {
@@ -7,7 +8,9 @@ namespace RestAPI_Kreatx.Infrastructure
     {
         IActionResult UpdateProfilePicture([FromBody] ProfilePicture profilePicture, APIUser user);
 
-        APIUser GetProfileData([FromBody] APIUser user);
+        IActionResult UpdateProfileData([FromBody] EmployeeProfile profileData, APIUser user);
+
+        List<EmployeeProfile> GetProfileData([FromBody] APIUser user);
 
         void CreateTask([FromBody] Tasks task);
 

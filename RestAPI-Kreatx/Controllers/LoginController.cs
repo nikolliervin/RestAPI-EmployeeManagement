@@ -28,27 +28,6 @@ namespace RestAPI_Kreatx.Controllers
             _userManager = userManager;
         }
 
-
-
-        //public async Task<IActionResult> register()
-        //{
-        //    var user = new APIUser
-        //    {
-        //        UserName = "admin",
-        //        Email = "admin@api.com",
-
-        //    };
-
-        //    await _userManager.CreateAsync(user, "Apiuser1.!");
-        //    var Employee = new APIUserRole
-        //    {
-        //        Name = "Admin",
-        //        NormalizedName = "ADMIN"
-        //    };
-        //    await _roleManager.CreateAsync(Employee);
-        //    await _userManager.AddToRoleAsync(user, "Admin");
-        //    return Ok();
-        //}
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] UserLogin user)

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestAPI_Kreatx.Data;
 
 namespace RestAPI_Kreatx.Migrations
 {
     [DbContext(typeof(APIIdentityContext))]
-    partial class APIIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20221218033606_UserFullNames")]
+    partial class UserFullNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

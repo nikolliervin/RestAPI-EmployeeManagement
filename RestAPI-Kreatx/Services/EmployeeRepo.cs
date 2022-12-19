@@ -2,6 +2,10 @@
 using RestAPI_Kreatx.Data;
 using RestAPI_Kreatx.Infrastructure;
 using RestAPI_Kreatx.Models;
+using System.Collections.Generic;
+using System.Linq;
+
+
 
 
 namespace RestAPI_Kreatx.Services
@@ -26,9 +30,21 @@ namespace RestAPI_Kreatx.Services
             throw new System.NotImplementedException();
         }
 
-        APIUser IEmployee.GetProfileData(APIUser user)
+        List<EmployeeProfile> IEmployee.GetProfileData(APIUser user)
         {
-            return _identity.Users.Find(user.Id);
+
+            var employeeData = (from u in _identity.Users
+                                where u.Id == user.Id
+                                select new EmployeeProfile
+                                {
+                                    FirstName = u.FirstName,
+                                    LastName = u.LastName,
+                                    ProfilePicture = u.UserProfilePicture,
+                                    PhoneNumber = u.PhoneNumber
+
+                                }).ToList();
+
+            return employeeData;
 
         }
 
@@ -39,18 +55,25 @@ namespace RestAPI_Kreatx.Services
 
         IActionResult IEmployee.UpdateProfilePicture([FromBody] ProfilePicture profilePicture, [FromBody] APIUser user)
         {
-            var curretUser = _identity.Users.Find(user.Id);
 
-            if (profilePicture == null)
-                return new StatusCodeResult(404);
-            else
-            {
-                curretUser.UserProfilePicture = profilePicture.Name;
-                curretUser.ProfilePictureUrl = profilePicture.FileUrl;
-                _identity.SaveChanges();
-            }
-            return new JsonResult(200, "Ok!");
+            user.UserProfilePicture = profilePicture.Name;
+            user.ProfilePictureUrl = profilePicture.FileUrl;
+            _identity.SaveChanges();
 
+            return new JsonResult(200, "Profile picture Updated");
+
+        }
+
+        IActionResult IEmployee.UpdateProfileData([FromBody] EmployeeProfile profileData, APIUser user)
+        {
+
+            user.FirstName = profileData.FirstName;
+            user.LastName = profileData.LastName;
+            user.UserProfilePicture = profileData.ProfilePicture;
+            user.PhoneNumber = profileData.PhoneNumber;
+            _identity.SaveChanges();
+
+            return new JsonResult(200, "User profile data updated");
         }
 
 
@@ -64,5 +87,7 @@ namespace RestAPI_Kreatx.Services
         {
             throw new System.NotImplementedException();
         }
+
+
     }
 }
