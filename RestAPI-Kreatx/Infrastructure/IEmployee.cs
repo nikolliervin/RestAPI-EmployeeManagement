@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestAPI_Kreatx.Models;
+using RestAPI_Kreatx.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RestAPI_Kreatx.Infrastructure
 {
@@ -12,14 +14,15 @@ namespace RestAPI_Kreatx.Infrastructure
 
         List<EmployeeProfile> GetProfileData([FromBody] APIUser user);
 
-        void CreateTask([FromBody] Tasks task);
+        IActionResult CreateTask([FromBody] Tasks task);
 
         IActionResult UpdateTask([FromBody] Tasks task);
 
-        void AssignTaskTo([FromBody] Tasks task, [FromBody] APIUser user);
+        Task<IActionResult> AssignTaskTo([FromBody] AssignTask assignTask);
 
-        void MarkTaskAsFinished([FromBody] Tasks task);
+        IActionResult MarkTaskAsFinished([FromBody] string taskName);
 
-        void ViewTask([FromBody] Tasks task);
+        List<TaskProjectViewModel> ViewTask();
+
     }
 }

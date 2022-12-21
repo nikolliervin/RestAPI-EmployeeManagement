@@ -19,8 +19,6 @@ namespace RestAPI_Kreatx.Controllers
         private APIIdentityContext _identity;
         private readonly IEmployee _employee;
 
-
-
         public HomeController(APIIdentityContext identity, IEmployee employee)
         {
             _identity = identity;
@@ -75,7 +73,7 @@ namespace RestAPI_Kreatx.Controllers
             };
 
         }
-        private APIUser GetUser()
+        public APIUser GetUser()
         {
             return _identity.Users.Find(Convert.ToInt32(GetHttpClaims()[0]));
         }

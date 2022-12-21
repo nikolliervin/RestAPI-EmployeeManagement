@@ -1,33 +1,64 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using RestAPI_Kreatx.Data;
 using RestAPI_Kreatx.Infrastructure;
 using RestAPI_Kreatx.Models;
+using RestAPI_Kreatx.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-
-
-
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace RestAPI_Kreatx.Services
 {
     public class EmployeeRepo : IEmployee
     {
-        private APIDbContext _db;
         private APIIdentityContext _identity;
-        public EmployeeRepo(APIDbContext db, APIIdentityContext identity)
+        private UserManager<APIUser> _userManager;
+        private readonly IHttpContextAccessor _httpAccessor;
+        public EmployeeRepo(APIIdentityContext identity, UserManager<APIUser> userManager, IHttpContextAccessor accesor)
         {
-            _db = db;
             _identity = identity;
+            _userManager = userManager;
+            _httpAccessor = accesor;
         }
 
-        void IEmployee.AssignTaskTo(Tasks task, APIUser user)
+        async Task<IActionResult> IEmployee.AssignTaskTo([FromBody] AssignTask assignTask)
         {
-            throw new System.NotImplementedException();
+            var result = await _userManager.FindByNameAsync(assignTask.Username);
+
+
+            if (result == null || await _userManager.IsInRoleAsync(result, "Admin"))
+                return new JsonResult(404, "Employee was not found");
+            else
+            {
+
+                var record = _identity.Tasks.Where(t => t.TaskName == assignTask.TaskName).FirstOrDefault();
+                record.UserId = result.Id;
+                _identity.Update(record);
+                _identity.SaveChanges();
+            }
+            return new JsonResult(200, $"Task assigned to: {result.UserName}");
+
         }
 
-        void IEmployee.CreateTask(Tasks task)
-        {
-            throw new System.NotImplementedException();
+        IActionResult IEmployee.CreateTask(Tasks task)
+        { /*DOTO userid=getuserid*/
+            var userProjectId = _identity.Projects.Where(p => 1 == GetUserId()).Select(p => p.Id).FirstOrDefault();
+            var newTask = new Tasks
+            {
+                TaskName = task.TaskName,
+                TaskDesc = task.TaskDesc,
+                IsFinished = task.IsFinished,
+                ProjectId = userProjectId,
+                UserId = GetUserId(),
+            };
+
+            _identity.Tasks.Add(newTask);
+            _identity.SaveChanges();
+
+            return new JsonResult(200, $"Task {task.TaskName} was created successfully!");
         }
 
         List<EmployeeProfile> IEmployee.GetProfileData(APIUser user)
@@ -48,9 +79,21 @@ namespace RestAPI_Kreatx.Services
 
         }
 
-        void IEmployee.MarkTaskAsFinished(Tasks task)
+        IActionResult IEmployee.MarkTaskAsFinished(string taskName)
         {
-            throw new System.NotImplementedException();
+            var taskObj = _identity.Tasks.Where(u => u.TaskName == taskName && u.UserId == GetUserId()).FirstOrDefault();
+
+            if (taskObj == null)
+                return new JsonResult(404, $"Task {taskName} was not found");
+            else
+            {
+                var record = _identity.Tasks.Where(t => t.TaskName == taskName && t.UserId == GetUserId()).FirstOrDefault();
+                record.IsFinished = true;
+                _identity.Update(record);
+                _identity.SaveChanges();
+            }
+
+            return new JsonResult(200, $"Task {taskName} is marked as Finished");
         }
 
         IActionResult IEmployee.UpdateProfilePicture([FromBody] ProfilePicture profilePicture, [FromBody] APIUser user)
@@ -78,14 +121,19 @@ namespace RestAPI_Kreatx.Services
 
 
 
-        void IEmployee.ViewTask(Tasks task)
+        List<TaskProjectViewModel> IEmployee.ViewTask()
         {
-            throw new System.NotImplementedException();
+            return new List<TaskProjectViewModel>();
         }
 
         IActionResult IEmployee.UpdateTask(Tasks task)
         {
             throw new System.NotImplementedException();
+        }
+
+        int GetUserId()
+        {
+            return int.Parse(_httpAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
 
 
