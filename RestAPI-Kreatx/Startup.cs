@@ -46,7 +46,6 @@ namespace RestAPI_Kreatx
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<APIIdentityContext>();
 
-            services.AddDbContext<APIDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<APIIdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddControllersWithViews()

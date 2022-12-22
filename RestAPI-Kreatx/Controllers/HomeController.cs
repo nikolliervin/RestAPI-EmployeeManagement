@@ -37,7 +37,7 @@ namespace RestAPI_Kreatx.Controllers
 
         public IActionResult GetProfileData()
         {
-            return Ok(_employee.GetProfileData(GetUser()));
+            return Ok(_employee.GetProfileData());
         }
 
         [HttpPost("UpdateProfilePicture")]
@@ -45,7 +45,7 @@ namespace RestAPI_Kreatx.Controllers
         public IActionResult UpdateProfilePicture([FromBody] ProfilePicture profilePicture)
         {
             if (ModelState.IsValid)
-                return Ok(_employee.UpdateProfilePicture(profilePicture, GetUser()));
+                return Ok(_employee.UpdateProfilePicture(profilePicture));
             else
                 return StatusCode(400);
         }
@@ -55,7 +55,7 @@ namespace RestAPI_Kreatx.Controllers
         public IActionResult UpdateProfileData([FromBody] EmployeeProfile profileData)
         {
             if (ModelState.IsValid)
-                return Ok(_employee.UpdateProfileData(profileData, GetUser()));
+                return Ok(_employee.UpdateProfileData(profileData));
             else
                 return StatusCode(400);
         }
