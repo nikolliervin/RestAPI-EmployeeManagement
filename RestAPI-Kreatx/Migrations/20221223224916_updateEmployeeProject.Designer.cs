@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestAPI_Kreatx.Data;
 
 namespace RestAPI_Kreatx.Migrations
 {
     [DbContext(typeof(APIIdentityContext))]
-    partial class APIIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20221223224916_updateEmployeeProject")]
+    partial class updateEmployeeProject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,18 +232,11 @@ namespace RestAPI_Kreatx.Migrations
 
             modelBuilder.Entity("RestAPI_Kreatx.Models.EmployeeProject", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.HasKey("Id");
 
                     b.ToTable("EmployeeProject");
                 });

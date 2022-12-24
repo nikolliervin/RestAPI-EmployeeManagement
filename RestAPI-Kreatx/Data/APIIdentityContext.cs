@@ -16,6 +16,8 @@ namespace RestAPI_Kreatx.Data
 
         public DbSet<Projects> Projects { get; set; }
 
+        public DbSet<EmployeeProject> EmployeeProject { get; set; }
+
 
 
     }

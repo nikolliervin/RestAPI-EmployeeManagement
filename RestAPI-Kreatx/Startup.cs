@@ -53,6 +53,7 @@ namespace RestAPI_Kreatx
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddMvc();
             services.AddTransient<IEmployee, EmployeeRepo>();
+            services.AddTransient<IAdministrator, AdministratorRepo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestAPI_Kreatx", Version = "v1" });

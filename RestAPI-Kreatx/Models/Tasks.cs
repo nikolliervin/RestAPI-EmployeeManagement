@@ -22,7 +22,6 @@ namespace RestAPI_Kreatx.Models
         [DisplayName("Task Status")]
         public bool IsFinished { get; set; }
 
-
         [Required(ErrorMessage = "Project Id cannot be null")]
         public int ProjectId { get; set; }
 

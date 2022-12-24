@@ -54,7 +54,7 @@ namespace RestAPI_Kreatx.Controllers
 
         public IActionResult WatchAllTasks()
         {
-            return (_employee.ViewTask());
+            return Ok(_employee.ViewTask());
         }
 
         [HttpPost("UpdateTask")]

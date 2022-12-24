@@ -11,7 +11,6 @@ namespace RestAPI_Kreatx.Models
 
         public string ProfilePictureUrl { get; set; }
 
-        public int ProjectId { get; set; }
 
 
 

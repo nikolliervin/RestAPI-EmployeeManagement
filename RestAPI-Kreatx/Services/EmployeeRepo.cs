@@ -5,10 +5,12 @@ using RestAPI_Kreatx.Data;
 using RestAPI_Kreatx.Infrastructure;
 using RestAPI_Kreatx.Models;
 using RestAPI_Kreatx.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+
 
 namespace RestAPI_Kreatx.Services
 {
@@ -41,13 +43,14 @@ namespace RestAPI_Kreatx.Services
                 _identity.Update(record);
                 _identity.SaveChanges();
             }
+
             return new JsonResult(200, $"Task assigned to: {result.UserName}");
 
         }
 
         IActionResult IEmployee.CreateTask(Tasks task)
-        {
-            var userProjectId = _identity.Users.Where(p => p.Id == GetUserId()).Select(p => p.ProjectId).FirstOrDefault();
+        {   /*TODO: Change Project ID 1.Put project as string parameter*/
+            var userProjectId = 1/*_identity.Users.Where(p => p.Id == GetUserId()).Select(p => p.ProjectId==1).FirstOrDefault()*/;
             var newTask = new Tasks
             {
                 TaskName = task.TaskName,
