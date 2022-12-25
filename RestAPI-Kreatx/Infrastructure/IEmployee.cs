@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestAPI_Kreatx.Models;
+using RestAPI_Kreatx.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,21 +8,21 @@ namespace RestAPI_Kreatx.Infrastructure
 {
     public interface IEmployee
     {
-        IActionResult UpdateProfilePicture([FromBody] ProfilePicture profilePicture);
+        ActionResult<ProfilePicture> UpdateProfilePicture([FromBody] ProfilePicture profilePicture);
 
-        IActionResult UpdateProfileData([FromBody] EmployeeProfile profileData);
+        ActionResult<EmployeeProfile> UpdateProfileData([FromBody] EmployeeProfile profileData);
 
-        List<EmployeeProfile> GetProfileData();
+        ActionResult<EmployeeProfileViewModel> GetProfileData();
 
-        IActionResult CreateTask([FromBody] Tasks task);
+        ActionResult<Tasks> CreateTask([FromBody] Tasks task, int projectId);
 
-        IActionResult UpdateTask([FromBody] UpdateTask task);
+        ActionResult<Tasks> UpdateTask(Tasks task, int taskId);
 
-        Task<IActionResult> AssignTaskTo([FromBody] AssignTask assignTask);
+        Task<AssignTask> AssignTaskTo(int taskId, APIUser user);
 
-        IActionResult MarkTaskAsFinished([FromBody] string taskName);
+        ActionResult<Tasks> MarkTaskAsFinished(int taskId);
 
-        IActionResult ViewTask();
+        List<TaskProjectViewModel> ViewTask();
 
     }
 }

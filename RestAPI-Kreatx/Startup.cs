@@ -75,6 +75,7 @@ namespace RestAPI_Kreatx
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseDeveloperExceptionPage();
 
 
 

@@ -32,9 +32,9 @@ namespace RestAPI_Kreatx.Controllers
 
         }
 
-        [HttpPost("DeleteUser")]
+        [HttpDelete("DeleteUser/{username}")]
 
-        public IActionResult DeleteUser([FromBody] string username)
+        public IActionResult DeleteUser(string username)
         {
             if (username == null || _identity.Users.Where(u => u.UserName == username).ToList().Count == 0)
                 return BadRequest($"User {username} does not exist");
@@ -43,7 +43,7 @@ namespace RestAPI_Kreatx.Controllers
 
         }
 
-        [HttpPost("UpdateUser")]
+        [HttpPut("UpdateUser/{username}")]
 
         public IActionResult UpdateUser(string username, [FromBody] UpdateUser user)
         {
@@ -53,7 +53,7 @@ namespace RestAPI_Kreatx.Controllers
             return Ok(_admin.UpdateUser(username, user).Value);
         }
 
-        [HttpPost("CreateTask")]
+        [HttpPost("CreateTask/{user}/{project}")]
 
         public IActionResult CreateTask([FromBody] Tasks task, string user, string project)
         {
@@ -72,7 +72,7 @@ namespace RestAPI_Kreatx.Controllers
             return Ok(_admin.UpdateTask(task).Value);
         }
 
-        [HttpPost("DeleteTask")]
+        [HttpDelete("DeleteTask/{taskName}")]
 
         public IActionResult DeleteTask(string taskName)
         {
@@ -96,7 +96,7 @@ namespace RestAPI_Kreatx.Controllers
 
         }
 
-        [HttpPost("RemoveEmployeeFrom")]
+        [HttpDelete("RemoveEmployeeFrom/{employee}/{project}")]
 
         public IActionResult RemoveEmployeeFrom(string employee, string project)
         {
@@ -108,10 +108,10 @@ namespace RestAPI_Kreatx.Controllers
             if (employeeExists.Count == 0)
                 return NotFound($"Employee {employee} is not part of project {project}");
 
-            return Ok(_admin.RemoveFromProject(employeeId, projectId));
+            return Ok(_admin.RemoveFromProject(employeeId, projectId).Value);
         }
 
-        [HttpPost("AssignTask")]
+        [HttpPost("AssignTask/{task}/{user}")]
 
         public IActionResult AssignTask(string task, string user)
         {
@@ -119,28 +119,66 @@ namespace RestAPI_Kreatx.Controllers
                 _identity.Tasks.Where(u => u.TaskName == task).ToList().Count == 0)
                 return NotFound($"User {user} or task {task} was not found");
 
-            return Ok();
+            return Ok(_admin.AssignTask(task, user).Value);
 
         }
 
-        [HttpPost("CompleteTask")]
+        [HttpPut("CompleteTask/{task}")]
 
         public IActionResult CompleteTask(string task)
         {
             if (_identity.Tasks.Where(t => t.TaskName == task).ToList().Count == 0)
                 return NotFound($"Task {task} was not found");
 
-            return Ok(_admin.CompleteTask(task));
+            return Ok(_admin.CompleteTask(task).Value);
         }
 
-        [HttpPost("RemoveTask")]
+        [HttpDelete("RemoveTask/{task}")]
 
         public IActionResult RemoveTask(string task)
         {
             if (_identity.Tasks.Where(t => t.TaskName == task).ToList().Count == 0)
                 return NotFound($"Task {task} does not exist");
 
-            return Ok(_admin.RemoveTask(task));
+            return Ok(_admin.RemoveTask(task).Value);
+        }
+
+        [HttpPost("AddProject")]
+
+        public IActionResult AddProject([FromBody] Projects project)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            return Ok(_admin.AddProject(project).Value);
+        }
+
+        [HttpPut("UpdateProject/{projectName}")]
+
+        public IActionResult UpdateProject(string projectName, [FromBody] Projects project)
+        {
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+            else if (_identity.Projects.Where(p => p.Name == projectName).ToList().Count == 0)
+                return NotFound($"Project {projectName} was not found");
+            else
+                return Ok(_admin.UpdateProject(projectName, project).Value);
+
+        }
+
+        [HttpDelete("RemoveProject/{projectName}")]
+
+        public IActionResult RemoveProject(string projectName)
+        {
+            var projectObj = _identity.Projects.Where(p => p.Name == projectName);
+            var projectId = projectObj.Select(p => p.Id).FirstOrDefault();
+
+            if (projectObj.ToList().Count == 0)
+                return NotFound($"Project {projectName} was not found");
+            else if (_identity.Tasks.Where(t => t.ProjectId == projectId).ToList().Count >= 1)
+                return BadRequest($"Project {projectName} cannot be removed because it has open tasks!");
+            else
+                return Ok(_admin.RemoveProject(projectId).Value);
         }
 
 

@@ -30,8 +30,8 @@ namespace RestAPI_Kreatx.Infrastructure
         ActionResult<Tasks> RemoveTask(string task);
 
         ActionResult<Projects> AddProject(Projects project);
-        ActionResult<Projects> UpdateProject(Projects project);
-        ActionResult<Projects> RemoveProject(Projects project);
+        ActionResult<Projects> UpdateProject(string projectName, Projects project);
+        ActionResult<Projects> RemoveProject(int projectId);
 
     }
 }

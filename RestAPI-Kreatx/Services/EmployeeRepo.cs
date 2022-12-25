@@ -26,92 +26,79 @@ namespace RestAPI_Kreatx.Services
             _httpAccessor = accesor;
         }
 
-        async Task<IActionResult> IEmployee.AssignTaskTo([FromBody] AssignTask assignTask)
+        async Task<AssignTask> IEmployee.AssignTaskTo(int taskId, APIUser user)
         {
-            var result = await _userManager.FindByNameAsync(assignTask.Username);
+            var taskobj = _identity.Tasks.Find(taskId);
 
+            taskobj.UserId = user.Id;
+            _identity.SaveChanges();
 
-            if (result == null || await _userManager.IsInRoleAsync(result, "Admin"))
-                return new JsonResult(404, "Employee was not found");
-            else
-            {
-
-                var record = _identity.Tasks.Where(t => t.TaskName == assignTask.TaskName).FirstOrDefault();
-                if (record == null)
-                    return new JsonResult(404, $"The task: {assignTask.TaskName} does not exist");
-                record.UserId = result.Id;
-                _identity.Update(record);
-                _identity.SaveChanges();
-            }
-
-            return new JsonResult(200, $"Task assigned to: {result.UserName}");
-
+            return new AssignTask { TaskName = taskobj.TaskName, Username = user.UserName };
         }
 
-        IActionResult IEmployee.CreateTask(Tasks task)
-        {   /*TODO: Change Project ID 1.Put project as string parameter*/
-            var userProjectId = 1/*_identity.Users.Where(p => p.Id == GetUserId()).Select(p => p.ProjectId==1).FirstOrDefault()*/;
+        ActionResult<Tasks> IEmployee.CreateTask([FromBody] Tasks task, int projectId)
+        {
+
             var newTask = new Tasks
             {
                 TaskName = task.TaskName,
                 TaskDesc = task.TaskDesc,
                 IsFinished = task.IsFinished,
-                ProjectId = userProjectId,
+                ProjectId = projectId,
                 UserId = GetUserId(),
             };
 
             _identity.Tasks.Add(newTask);
             _identity.SaveChanges();
 
-            return new JsonResult(200, $"Task {task.TaskName} was created successfully!");
-        }
-
-        List<EmployeeProfile> IEmployee.GetProfileData()
-        {
-
-            var employeeData = (from u in _identity.Users
-                                where u.Id == GetUserId()
-                                select new EmployeeProfile
-                                {
-                                    FirstName = u.FirstName,
-                                    LastName = u.LastName,
-                                    PhoneNumber = u.PhoneNumber
-
-                                }).ToList();
-
-            return employeeData;
+            return newTask;
 
         }
-
-        IActionResult IEmployee.MarkTaskAsFinished(string taskName)
+        //TODO: Refactor to get more fields from different tables
+        ActionResult<EmployeeProfileViewModel> IEmployee.GetProfileData()
         {
-            var taskObj = _identity.Tasks.Where(u => u.TaskName == taskName && u.UserId == GetUserId()).FirstOrDefault();
 
-            if (taskObj == null)
-                return new JsonResult(404, $"Task {taskName} was not found");
-            else
+            var employeeData = _identity.Users.Where(u => u.Id == GetUserId()).FirstOrDefault();
+            var employeeTasks = (from t in _identity.Tasks where t.UserId == GetUserId() select t.TaskName);
+            var employeeProjects = (from p in _identity.EmployeeProject
+                                    where p.UserId == GetUserId()
+                                    join
+                                    n in _identity.Projects on p.ProjectId equals n.Id
+                                    select n.Name);
+
+            return new EmployeeProfileViewModel
             {
-                var record = _identity.Tasks.Where(t => t.TaskName == taskName && t.UserId == GetUserId()).FirstOrDefault();
-                record.IsFinished = true;
-                _identity.Update(record);
-                _identity.SaveChanges();
-            }
+                FirstName = employeeData.FirstName,
+                LastName = employeeData.LastName,
+                Username = employeeData.UserName,
+                PhoneNumber = employeeData.PhoneNumber,
+                Tasks = employeeTasks.ToList(),
+                Projects = employeeProjects.ToList()
+            };
 
-            return new JsonResult($"Task {taskName} is marked as Finished");
         }
 
-        IActionResult IEmployee.UpdateProfilePicture([FromBody] ProfilePicture profilePicture)
+        ActionResult<Tasks> IEmployee.MarkTaskAsFinished(int taskId)
+        {
+            var taskObj = _identity.Tasks.Find(taskId);
+            taskObj.IsFinished = true;
+            _identity.SaveChanges();
+
+            return taskObj;
+        }
+
+        ActionResult<ProfilePicture> IEmployee.UpdateProfilePicture([FromBody] ProfilePicture profilePicture)
         {
             var user = _identity.Users.Find(GetUserId());
             user.UserProfilePicture = profilePicture.Name;
             user.ProfilePictureUrl = profilePicture.FileUrl;
             _identity.SaveChanges();
 
-            return new JsonResult("Profile picture Updated");
+            return profilePicture;
 
         }
 
-        IActionResult IEmployee.UpdateProfileData([FromBody] EmployeeProfile profileData)
+        ActionResult<EmployeeProfile> IEmployee.UpdateProfileData([FromBody] EmployeeProfile profileData)
         {
             var user = _identity.Users.Find(GetUserId());
             user.FirstName = profileData.FirstName;
@@ -119,20 +106,18 @@ namespace RestAPI_Kreatx.Services
             user.PhoneNumber = profileData.PhoneNumber;
             _identity.SaveChanges();
 
-            return new JsonResult("Profile data updated");
+            return profileData;
         }
 
 
 
-        IActionResult IEmployee.ViewTask()
+        List<TaskProjectViewModel> IEmployee.ViewTask()
         {
 
             var projects = from t in _identity.Tasks
                            where t.UserId == GetUserId()
                            select t.ProjectId;
 
-            if (projects == null)
-                return new JsonResult(404, "You are not part of any project");
 
             var query = (from t in _identity.Tasks
                          join p in _identity.Projects
@@ -149,33 +134,30 @@ namespace RestAPI_Kreatx.Services
                              IsFinished = t.IsFinished
                          }).ToList();
 
-            if (query.Count == 0)
-                return new JsonResult(404, "The project youre part of has no tasks created");
-
-            return new OkObjectResult(query);
+            return query;
 
         }
-        IActionResult IEmployee.UpdateTask(UpdateTask task)
+        ActionResult<Tasks> IEmployee.UpdateTask([FromBody] Tasks task, int taskId)
         {
-            var taskObj = _identity.Tasks.Where(t => t.TaskName == task.TaskName).FirstOrDefault();
-            if (taskObj == null)
-                return new JsonResult(404, $"Task {task.TaskName} was not found");
-            else
-            {
-                taskObj.TaskName = task.NewTaskName;
-                taskObj.TaskDesc = task.NewTaskDesc;
-                taskObj.IsFinished = task.IsFinished;
-                _identity.Update(taskObj);
-                _identity.SaveChanges();
+            var taskObj = _identity.Tasks.Where(t => t.Id == taskId).FirstOrDefault();
 
-            }
-            return new JsonResult(200, $"Task {task.TaskName} was updated successfully!");
+            taskObj.IsFinished = task.IsFinished;
+            taskObj.TaskName = task.TaskName;
+            taskObj.TaskDesc = task.TaskDesc;
+
+            _identity.SaveChanges();
+            return taskObj;
+
         }
+
+
 
         int GetUserId()
         {
             return int.Parse(_httpAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
+
+
 
 
     }

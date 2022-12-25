@@ -128,18 +128,11 @@ namespace RestAPI_Kreatx.Services
 
         ActionResult<EmployeeProject> IAdministrator.RemoveFromProject(int employeeId, int projectId)
         {
-            var recordId = (from e in _identity.EmployeeProject
-                            where e.ProjectId == projectId && e.UserId == employeeId
-                            select new EmployeeProject
-                            {
-                                Id = e.Id,
-                                ProjectId = e.ProjectId,
-                                UserId = e.UserId
-                            }).ToList();
+            var record = _identity.EmployeeProject.Where(p => p.UserId == employeeId && p.ProjectId == projectId).FirstOrDefault();
 
-            _identity.EmployeeProject.Remove(recordId[0]);
+            _identity.Remove(record);
             _identity.SaveChanges();
-            return recordId[0];
+            return record;
         }
 
         ActionResult<Tasks> IAdministrator.AssignTask(string task, string user)
@@ -166,7 +159,7 @@ namespace RestAPI_Kreatx.Services
         ActionResult<Tasks> IAdministrator.RemoveTask(string task)
         {
             var taskObj = _identity.Tasks.Where(t => t.TaskName == task).FirstOrDefault();
-            _identity.Remove(taskObj.Id);
+            _identity.Remove(taskObj);
             _identity.SaveChanges();
 
             return taskObj;
@@ -174,17 +167,40 @@ namespace RestAPI_Kreatx.Services
 
         ActionResult<Projects> IAdministrator.AddProject(Projects project)
         {
-            throw new System.NotImplementedException();
+            _identity.Projects.Add(project);
+            _identity.SaveChanges();
+
+            return project;
         }
 
-        ActionResult<Projects> IAdministrator.UpdateProject(Projects project)
+        ActionResult<Projects> IAdministrator.UpdateProject(string projectName, Projects project)
         {
-            throw new System.NotImplementedException();
+            var oldProject = _identity.Projects.Where(p => p.Name == projectName).FirstOrDefault();
+
+            var proj = new Projects
+            {
+                Id = oldProject.Id,
+                Name = project.Name,
+                ProjectDesc = project.ProjectDesc,
+                HasOpenTasks = project.HasOpenTasks
+            };
+
+            _identity.Update(project);
+            _identity.SaveChanges();
+
+            return proj;
+
+
         }
 
-        ActionResult<Projects> IAdministrator.RemoveProject(Projects project)
+        ActionResult<Projects> IAdministrator.RemoveProject(int projectId)
         {
-            throw new System.NotImplementedException();
+            var projectEntry = _identity.Projects.Find(projectId);
+
+            _identity.Projects.Remove(projectEntry);
+            _identity.SaveChanges();
+
+            return projectEntry;
         }
     }
 }
