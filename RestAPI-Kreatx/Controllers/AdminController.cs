@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RestAPI_Kreatx.Data;
 using RestAPI_Kreatx.Infrastructure;
@@ -10,6 +11,7 @@ namespace RestAPI_Kreatx.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
     public class AdminController : Controller
     {
         IAdministrator _admin;
