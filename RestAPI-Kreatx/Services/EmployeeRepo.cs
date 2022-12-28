@@ -32,7 +32,6 @@ namespace RestAPI_Kreatx.Services
 
             taskobj.UserId = user.Id;
             _identity.SaveChanges();
-
             return new AssignTask { TaskName = taskobj.TaskName, Username = user.UserName };
         }
 
