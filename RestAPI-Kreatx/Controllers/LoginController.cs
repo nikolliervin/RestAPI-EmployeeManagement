@@ -28,6 +28,12 @@ namespace RestAPI_Kreatx.Controllers
             _userManager = userManager;
         }
 
+
+        /// <summary>
+        /// Logs the employee in and generates the token
+        /// </summary>
+        /// <param name="user">Employee username and password</param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] UserLogin user)
