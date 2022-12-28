@@ -6,6 +6,7 @@ using RestAPI_Kreatx.Data;
 using RestAPI_Kreatx.Infrastructure;
 using RestAPI_Kreatx.Models;
 using System.Linq;
+using System.Net.Mime;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@ namespace RestAPI_Kreatx.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Employee")]
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
     public class EmployeeController : ControllerBase
     {
 
@@ -31,22 +34,40 @@ namespace RestAPI_Kreatx.Controllers
 
         }
 
+        /// <summary>
+        /// Gets the profile data for the currently logged in employee.
+        /// </summary>
         [HttpGet("Profile")]
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetProfileData()
         {
             return Ok(_employee.GetProfileData().Value);
         }
 
+
+
+        /// <summary>
+        /// Updates the profile picture for the currently logged in employee
+        /// </summary>
+        /// <param name="profilePicture">The profile picture object to be updated</param>
         [HttpPost("UpdateProfilePicture")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult UpdateProfilePicture([FromBody] ProfilePicture profilePicture)
         {
             if (ModelState.IsValid)
-                return Ok(_employee.UpdateProfilePicture(profilePicture));
+                return Ok(_employee.UpdateProfilePicture(profilePicture).Value);
             else
                 return BadRequest();
         }
 
+
+        /// <summary>
+        /// Updates the profile data for the employee
+        /// </summary>
+        /// <param name="profileData">The new profile data object</param>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("UpdateProfileData")]
         public IActionResult UpdateProfileData([FromBody] EmployeeProfile profileData)
         {
@@ -56,7 +77,15 @@ namespace RestAPI_Kreatx.Controllers
                 return BadRequest();
         }
 
-        [HttpPost("CreateTask")]
+
+        /// <summary>
+        /// Creates a task for a certain project the employee is part of
+        /// </summary>
+        /// <param name="task">The task object to be created</param>
+        /// <param name="project">The project where the task belongs</param>
+        [HttpPost("CreateTask/{project}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult CreateTask([FromBody] Tasks task, string project)
         {
             var projectId = _identity.Projects.Where(p => p.Name == project).Select(p => p.Id);
@@ -69,7 +98,14 @@ namespace RestAPI_Kreatx.Controllers
 
         }
 
+
+        /// <summary>
+        /// Assigns a task that the employee has to a different employee
+        /// </summary>
+        /// <param name="taskUser">The model to assign the task to an employee</param>
         [HttpPost("AssignTaskTo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> AssignTaskTo([FromBody] AssignTask taskUser)
         {
 
@@ -93,7 +129,14 @@ namespace RestAPI_Kreatx.Controllers
 
         }
 
+
+        /// <summary>
+        /// Marks a certain task that the employee has as completed
+        /// </summary>
+        /// <param name="taskName">Name of the task</param>
         [HttpPut("FinishTask/{taskName}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult FinishTask(string taskName)
         {
             var task = _identity.Tasks.Where(t => t.TaskName == taskName && t.UserId == GetUserId()).Select(t => t.Id);
@@ -101,12 +144,18 @@ namespace RestAPI_Kreatx.Controllers
             if (task.ToList().Count != 0)
                 return Ok(_employee.MarkTaskAsFinished(task.FirstOrDefault()).Value);
             else
-                return NotFound($"Task {taskName} was not found!");
+                return NotFound($"Task {taskName} was not found in your account!");
 
 
         }
 
+
+        /// <summary>
+        /// Gets all the tasks from the project the employee is part of
+        /// </summary>
         [HttpGet("WatchAllTasks")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult WatchAllTasks()
         {
@@ -116,7 +165,15 @@ namespace RestAPI_Kreatx.Controllers
             return Ok(_employee.ViewTask());
         }
 
+
+        /// <summary>
+        /// Updates the tasks that user selects
+        /// </summary>
+        /// <param name="task">The new task object to be updated</param>
+        /// <param name="taskName">Name of the old task</param>
         [HttpPut("UpdateTask/{taskName}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult UpdateTask([FromBody] Tasks task, string taskName)
         {

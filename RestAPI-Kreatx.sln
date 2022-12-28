@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestAPI-Kreatx", "RestAPI-Kreatx\RestAPI-Kreatx.csproj", "{F2D8FB53-1A59-43EF-BEED-A44DD95ED99C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestAPI-Kreatx", "RestAPI-Kreatx\RestAPI-Kreatx.csproj", "{F2D8FB53-1A59-43EF-BEED-A44DD95ED99C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{B9F415D3-D4E9-4EDE-ABC7-2291D090AB1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F2D8FB53-1A59-43EF-BEED-A44DD95ED99C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2D8FB53-1A59-43EF-BEED-A44DD95ED99C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2D8FB53-1A59-43EF-BEED-A44DD95ED99C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9F415D3-D4E9-4EDE-ABC7-2291D090AB1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9F415D3-D4E9-4EDE-ABC7-2291D090AB1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9F415D3-D4E9-4EDE-ABC7-2291D090AB1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9F415D3-D4E9-4EDE-ABC7-2291D090AB1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

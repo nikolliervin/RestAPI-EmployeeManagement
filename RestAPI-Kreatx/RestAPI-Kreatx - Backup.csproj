@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>RestAPI_Kreatx</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>RestAPI-Kreatx.xml</DocumentationFile>
+    <DocumentationFile>apidocs.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

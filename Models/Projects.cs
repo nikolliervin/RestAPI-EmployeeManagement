@@ -18,8 +18,6 @@ namespace RestAPI_Kreatx.Models
         [DisplayName("Project Description")]
         public string ProjectDesc { get; set; }
 
-        [Required(ErrorMessage = "Project open tasks checking is required")]
-        public bool HasOpenTasks { get; set; }
 
 
 

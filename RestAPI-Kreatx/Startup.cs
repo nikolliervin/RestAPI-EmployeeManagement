@@ -11,6 +11,9 @@ using RestAPI_Kreatx.Data;
 using RestAPI_Kreatx.Infrastructure;
 using RestAPI_Kreatx.Models;
 using RestAPI_Kreatx.Services;
+using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace RestAPI_Kreatx
@@ -56,7 +59,35 @@ namespace RestAPI_Kreatx
             services.AddTransient<IAdministrator, AdministratorRepo>();
             services.AddSwaggerGen(c =>
             {
+
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestAPI_Kreatx", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter a valid token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string []{}
+                    }
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
@@ -67,6 +98,7 @@ namespace RestAPI_Kreatx
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
+
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestAPI_Kreatx v1"));
             }
 

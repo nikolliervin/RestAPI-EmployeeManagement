@@ -181,8 +181,7 @@ namespace RestAPI_Kreatx.Services
             {
                 Id = oldProject.Id,
                 Name = project.Name,
-                ProjectDesc = project.ProjectDesc,
-                HasOpenTasks = project.HasOpenTasks
+                ProjectDesc = project.ProjectDesc
             };
 
             _identity.Update(project);
