@@ -22,6 +22,7 @@ namespace RestAPI_Kreatx.Services
         {
             var newUser = new APIUser { UserName = user.username, Email = $"{user.username}@api.com" };
             var result = await _userManager.CreateAsync(newUser, user.password);
+            await _userManager.AddToRoleAsync(newUser, "Employee");
             return newUser;
         }
 

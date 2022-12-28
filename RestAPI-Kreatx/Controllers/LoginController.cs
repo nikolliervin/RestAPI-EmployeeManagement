@@ -30,7 +30,7 @@ namespace RestAPI_Kreatx.Controllers
 
 
         /// <summary>
-        /// Logs the employee in and generates the token
+        /// Logs the users in and generates the token
         /// </summary>
         /// <param name="user">Employee username and password</param>
         /// <returns></returns>

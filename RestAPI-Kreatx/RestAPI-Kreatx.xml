@@ -146,5 +146,12 @@
             <param name="task">The new task object to be updated</param>
             <param name="taskName">Name of the old task</param>
         </member>
+        <member name="M:RestAPI_Kreatx.Controllers.LoginController.Login(RestAPI_Kreatx.Models.UserLogin)">
+            <summary>
+            Logs the users in and generates the token
+            </summary>
+            <param name="user">Employee username and password</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestAPI_Kreatx.Data;
-using RestAPI_Kreatx.Infrastructure;
 using RestAPI_Kreatx.Models;
 using System;
 using System.Collections.Generic;
@@ -17,12 +16,12 @@ namespace RestAPI_Kreatx.Controllers
     public class HomeController : ControllerBase
     {
         private APIIdentityContext _identity;
-        private readonly IEmployee _employee;
 
-        public HomeController(APIIdentityContext identity, IEmployee employee)
+
+        public HomeController(APIIdentityContext identity)
         {
             _identity = identity;
-            _employee = employee;
+
         }
 
         [HttpGet("Welcome")]
