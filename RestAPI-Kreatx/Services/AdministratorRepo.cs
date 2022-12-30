@@ -29,7 +29,6 @@ namespace RestAPI_Kreatx.Services
         ActionResult<APIUser> IAdministrator.RemoveUser(string username)
         {
             var user = _identity.Users.Where(u => u.UserName == username).FirstOrDefault();
-            var deletedUser = user.UserName;
             _identity.Remove(user);
             _identity.SaveChanges();
             return user;
@@ -47,6 +46,7 @@ namespace RestAPI_Kreatx.Services
             userFound.UserProfilePicture = user.ProfilePicture;
             userFound.ProfilePictureUrl = user.ProfilePictureUrl;
 
+            _identity.Attach(userFound);
             _identity.SaveChanges();
 
             return user;
@@ -81,7 +81,7 @@ namespace RestAPI_Kreatx.Services
             oldTask.TaskDesc = task.NewTaskDesc;
             oldTask.IsFinished = task.IsFinished;
 
-            _identity.Update(oldTask);
+            _identity.Attach(oldTask);
             _identity.SaveChanges();
 
             return oldTask;
@@ -142,6 +142,7 @@ namespace RestAPI_Kreatx.Services
             var userObj = _identity.Users.Where(u => u.UserName == user).FirstOrDefault();
 
             taskObj.UserId = userObj.Id;
+            _identity.Attach(taskObj);
             _identity.SaveChanges();
 
             return taskObj;
@@ -178,17 +179,15 @@ namespace RestAPI_Kreatx.Services
         {
             var oldProject = _identity.Projects.Where(p => p.Name == projectName).FirstOrDefault();
 
-            var proj = new Projects
-            {
-                Id = oldProject.Id,
-                Name = project.Name,
-                ProjectDesc = project.ProjectDesc
-            };
 
-            _identity.Update(project);
+            oldProject.Name = project.Name;
+            oldProject.ProjectDesc = project.ProjectDesc;
+
+
+            _identity.Update(oldProject);
             _identity.SaveChanges();
 
-            return proj;
+            return oldProject;
 
 
         }
