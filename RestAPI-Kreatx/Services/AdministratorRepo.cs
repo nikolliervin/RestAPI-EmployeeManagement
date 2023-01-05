@@ -75,13 +75,13 @@ namespace RestAPI_Kreatx.Services
 
         ActionResult<Tasks> IAdministrator.UpdateTask([FromBody] UpdateTask task)
         {
-            var oldTask = _identity.Tasks.Where(t => t.TaskName == t.TaskName).FirstOrDefault();
+            var oldTask = _identity.Tasks.Where(t => t.TaskName == task.TaskName).FirstOrDefault();
 
             oldTask.TaskName = task.NewTaskName;
             oldTask.TaskDesc = task.NewTaskDesc;
             oldTask.IsFinished = task.IsFinished;
 
-            _identity.Attach(oldTask);
+            _identity.Update(oldTask);
             _identity.SaveChanges();
 
             return oldTask;
