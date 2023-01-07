@@ -3,18 +3,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using RestAPI_Kreatx.Models;
+using RestAPI_EmployeeManagement.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RestAPI_Kreatx.Controllers
+namespace RestAPI_EmployeeManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Consumes("application/json")]
+
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration _config;

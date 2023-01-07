@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace RestAPI_Kreatx.Migrations
+namespace RestAPI_EmployeeManagement.Migrations
 {
     public partial class UserProfilePictureModel : Migration
     {

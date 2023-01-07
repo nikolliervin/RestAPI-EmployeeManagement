@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RestAPI_Kreatx.ViewModels
+namespace RestAPI_EmployeeManagement.ViewModels
 {
     public class EmployeeProfileViewModel
     {

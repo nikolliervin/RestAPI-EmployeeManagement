@@ -7,16 +7,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using RestAPI_Kreatx.Data;
-using RestAPI_Kreatx.Infrastructure;
-using RestAPI_Kreatx.Models;
-using RestAPI_Kreatx.Services;
+using RestAPI_EmployeeManagement.Data;
+using RestAPI_EmployeeManagement.Infrastructure;
+using RestAPI_EmployeeManagement.Models;
+using RestAPI_EmployeeManagement.Services;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace RestAPI_Kreatx
+namespace RestAPI_EmployeeManagement
 {
     public class Startup
     {
@@ -60,7 +60,7 @@ namespace RestAPI_Kreatx
             services.AddSwaggerGen(c =>
             {
 
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestAPI_Kreatx", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestAPI_EmployeeManagement", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
@@ -99,7 +99,7 @@ namespace RestAPI_Kreatx
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
 
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestAPI_Kreatx v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestAPI_EmployeeManagement v1"));
             }
 
             app.UseHttpsRedirection();

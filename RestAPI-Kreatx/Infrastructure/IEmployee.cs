@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestAPI_Kreatx.Models;
-using RestAPI_Kreatx.ViewModels;
+using RestAPI_EmployeeManagement.Models;
+using RestAPI_EmployeeManagement.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace RestAPI_Kreatx.Infrastructure
+namespace RestAPI_EmployeeManagement.Infrastructure
 {
     public interface IEmployee
     {

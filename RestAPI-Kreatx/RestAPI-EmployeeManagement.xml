@@ -1,29 +1,29 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>RestAPI-Kreatx</name>
+        <name>RestAPI-EmployeeManagement</name>
     </assembly>
     <members>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.CreateUser(RestAPI_Kreatx.Models.UserLogin)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.CreateUser(RestAPI_EmployeeManagement.Models.UserLogin)">
             <summary>
             Creates a new user of role "Employee"
             </summary>
             <param name="user">The user object to be created</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.DeleteUser(System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.DeleteUser(System.String)">
             <summary>
             Deletes the employee based on the username
             </summary>
             <param name="username">The username of the employee</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.UpdateUser(System.String,RestAPI_Kreatx.Models.UpdateUser)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.UpdateUser(System.String,RestAPI_EmployeeManagement.Models.UpdateUser)">
             <summary>
             Updates the employee that the admin selects to the json object
             </summary>
             <param name="username">The employee selected</param>
             <param name="user">The new employee object</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.CreateTask(RestAPI_Kreatx.Models.Tasks,System.String,System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.CreateTask(RestAPI_EmployeeManagement.Models.Tasks,System.String,System.String)">
             <summary>
             Creates a task for a certain project and assigns it to a user
             </summary>
@@ -31,20 +31,20 @@
             <param name="user">The employee to assign the task to</param>
             <param name="project">The project where task belongs</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.UpdateTask(RestAPI_Kreatx.Models.UpdateTask)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.UpdateTask(RestAPI_EmployeeManagement.Models.UpdateTask)">
             <summary>
             Selects the task from the [TaskName] and updates it to a new one
             </summary>
             <param name="task">The model used to identify and update task</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.DeleteTask(System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.DeleteTask(System.String)">
             <summary>
             Deletes the task based on the TaskName the admin types
             </summary>
             <param name="taskName">The name of the task to be deleted</param>
             <returns></returns>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.AddToProject(System.String,System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.AddToProject(System.String,System.String)">
             <summary>
             Adds a certain employee to a project
             </summary>
@@ -52,14 +52,14 @@
             <param name="project">Name of the project</param>
             <returns></returns>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.RemoveEmployeeFrom(System.String,System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.RemoveEmployeeFrom(System.String,System.String)">
             <summary>
             Removes the selected employee from a certain project
             </summary>
             <param name="employee">The username of the employee</param>
             <param name="project">The Name of the project</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.AssignTask(System.String,System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.AssignTask(System.String,System.String)">
             <summary>
             Assigns a task to a certain employee
             </summary>
@@ -67,86 +67,86 @@
             <param name="user">The username of the employee</param>
             <returns></returns>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.CompleteTask(System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.CompleteTask(System.String)">
             <summary>
             Marks a task as completed
             </summary>
             <param name="task">Name of the task</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.RemoveTask(System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.RemoveTask(System.String)">
             <summary>
             Removes a task
             </summary>
             <param name="task">The name of the task to be removed</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.AddProject(RestAPI_Kreatx.Models.Projects)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.AddProject(RestAPI_EmployeeManagement.Models.Projects)">
             <summary>
             Adds a new project
             </summary>
             <param name="project">The project object to be added</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.UpdateProject(System.String,RestAPI_Kreatx.Models.Projects)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.UpdateProject(System.String,RestAPI_EmployeeManagement.Models.Projects)">
             <summary>
             Updates the selected project to the new one
             </summary>
             <param name="projectName">The name of the project selected</param>
             <param name="project">The new project object</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.AdminController.RemoveProject(System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.AdminController.RemoveProject(System.String)">
             <summary>
             Removes the project selected
             </summary>
             <param name="projectName">Name of the project</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.EmployeeController.GetProfileData">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.EmployeeController.GetProfileData">
             <summary>
             Gets the profile data for the currently logged in employee.
             </summary>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.EmployeeController.UpdateProfilePicture(RestAPI_Kreatx.Models.ProfilePicture)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.EmployeeController.UpdateProfilePicture(RestAPI_EmployeeManagement.Models.ProfilePicture)">
             <summary>
             Updates the profile picture for the currently logged in employee
             </summary>
             <param name="profilePicture">The profile picture object to be updated</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.EmployeeController.UpdateProfileData(RestAPI_Kreatx.Models.EmployeeProfile)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.EmployeeController.UpdateProfileData(RestAPI_EmployeeManagement.Models.EmployeeProfile)">
             <summary>
             Updates the profile data for the employee
             </summary>
             <param name="profileData">The new profile data object</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.EmployeeController.CreateTask(RestAPI_Kreatx.Models.Tasks,System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.EmployeeController.CreateTask(RestAPI_EmployeeManagement.Models.Tasks,System.String)">
             <summary>
             Creates a task for a certain project the employee is part of
             </summary>
             <param name="task">The task object to be created</param>
             <param name="project">The project where the task belongs</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.EmployeeController.AssignTaskTo(RestAPI_Kreatx.Models.AssignTask)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.EmployeeController.AssignTaskTo(RestAPI_EmployeeManagement.Models.AssignTask)">
             <summary>
             Assigns a task that the employee has to a different employee
             </summary>
             <param name="taskUser">The model to assign the task to an employee</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.EmployeeController.FinishTask(System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.EmployeeController.FinishTask(System.String)">
             <summary>
             Marks a certain task that the employee has as completed
             </summary>
             <param name="taskName">Name of the task</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.EmployeeController.WatchAllTasks">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.EmployeeController.WatchAllTasks">
             <summary>
             Gets all the tasks from the project the employee is part of
             </summary>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.EmployeeController.UpdateTask(RestAPI_Kreatx.Models.Tasks,System.String)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.EmployeeController.UpdateTask(RestAPI_EmployeeManagement.Models.Tasks,System.String)">
             <summary>
             Updates the tasks that user selects
             </summary>
             <param name="task">The new task object to be updated</param>
             <param name="taskName">Name of the old task</param>
         </member>
-        <member name="M:RestAPI_Kreatx.Controllers.LoginController.Login(RestAPI_Kreatx.Models.UserLogin)">
+        <member name="M:RestAPI_EmployeeManagement.Controllers.LoginController.Login(RestAPI_EmployeeManagement.Models.UserLogin)">
             <summary>
             Logs the users in and generates the token
             </summary>

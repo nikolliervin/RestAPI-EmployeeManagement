@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RestAPI_Kreatx.Models;
+using RestAPI_EmployeeManagement.Models;
 
-namespace RestAPI_Kreatx.Data
+namespace RestAPI_EmployeeManagement.Data
 {
     public class APIIdentityContext : IdentityDbContext<APIUser, APIUserRole, int>
     {

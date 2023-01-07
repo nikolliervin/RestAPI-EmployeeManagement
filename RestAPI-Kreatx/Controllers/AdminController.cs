@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using RestAPI_Kreatx.Data;
-using RestAPI_Kreatx.Infrastructure;
-using RestAPI_Kreatx.Models;
+using RestAPI_EmployeeManagement.Data;
+using RestAPI_EmployeeManagement.Infrastructure;
+using RestAPI_EmployeeManagement.Models;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 
-namespace RestAPI_Kreatx.Controllers
+namespace RestAPI_EmployeeManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

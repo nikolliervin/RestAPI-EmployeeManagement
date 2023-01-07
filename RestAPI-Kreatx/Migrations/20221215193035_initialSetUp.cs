@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
-namespace RestAPI_Kreatx.Migrations
+namespace RestAPI_EmployeeManagement.Migrations
 {
     public partial class initialSetUp : Migration
     {

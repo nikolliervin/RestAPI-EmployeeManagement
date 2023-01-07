@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RestAPI_Kreatx.Data;
+using RestAPI_EmployeeManagement.Data;
 
-namespace RestAPI_Kreatx.Migrations
+namespace RestAPI_EmployeeManagement.Migrations
 {
     [DbContext(typeof(APIIdentityContext))]
     [Migration("20221223221459_EmployeeProject")]

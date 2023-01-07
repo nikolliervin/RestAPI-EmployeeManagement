@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>RestAPI_Kreatx</RootNamespace>
+    <RootNamespace>RestAPI_EmployeeManagement</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>RestAPI-Kreatx.xml</DocumentationFile>
+    <DocumentationFile>RestAPI-EmployeeManagement.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

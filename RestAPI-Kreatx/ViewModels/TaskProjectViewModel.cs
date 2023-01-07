@@ -1,4 +1,4 @@
-﻿namespace RestAPI_Kreatx.ViewModels
+﻿namespace RestAPI_EmployeeManagement.ViewModels
 {
     public class TaskProjectViewModel
     {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using RestAPI_Kreatx.Data;
-using RestAPI_Kreatx.Infrastructure;
-using RestAPI_Kreatx.Models;
-using RestAPI_Kreatx.ViewModels;
+using RestAPI_EmployeeManagement.Data;
+using RestAPI_EmployeeManagement.Infrastructure;
+using RestAPI_EmployeeManagement.Models;
+using RestAPI_EmployeeManagement.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 
 
-namespace RestAPI_Kreatx.Services
+namespace RestAPI_EmployeeManagement.Services
 {
     public class EmployeeRepo : IEmployee
     {

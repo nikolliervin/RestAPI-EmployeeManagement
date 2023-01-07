@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestAPI_Kreatx.Models;
+using RestAPI_EmployeeManagement.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestAPI_Kreatx.Infrastructure
+namespace RestAPI_EmployeeManagement.Infrastructure
 {
     public interface IAdministrator
     {

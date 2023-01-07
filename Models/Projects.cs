@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace RestAPI_Kreatx.Models
+namespace RestAPI_EmployeeManagement.Models
 {
     public class Projects
     {

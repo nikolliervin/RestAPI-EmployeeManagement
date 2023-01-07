@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using RestAPI_Kreatx;
+using RestAPI_EmployeeManagement;
 
 
-namespace RestAPI_Kreatx.Models
+namespace RestAPI_EmployeeManagement.Models
 {
     public class APIUser : IdentityUser<int>
     {

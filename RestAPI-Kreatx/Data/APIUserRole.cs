@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace RestAPI_Kreatx.Models
+namespace RestAPI_EmployeeManagement.Models
 {
     public class APIUserRole : IdentityRole<int>
     {

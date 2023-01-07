@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RestAPI_Kreatx.Data;
+using RestAPI_EmployeeManagement.Data;
 
-namespace RestAPI_Kreatx.Migrations
+namespace RestAPI_EmployeeManagement.Migrations
 {
     [DbContext(typeof(APIIdentityContext))]
     [Migration("20221218013336_UserProfilePictureModel")]
@@ -122,7 +122,7 @@ namespace RestAPI_Kreatx.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("RestAPI_Kreatx.Models.APIUser", b =>
+            modelBuilder.Entity("RestAPI_EmployeeManagement.Models.APIUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -195,7 +195,7 @@ namespace RestAPI_Kreatx.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("RestAPI_Kreatx.Models.APIUserRole", b =>
+            modelBuilder.Entity("RestAPI_EmployeeManagement.Models.APIUserRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -226,7 +226,7 @@ namespace RestAPI_Kreatx.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("RestAPI_Kreatx.Models.APIUserRole", null)
+                    b.HasOne("RestAPI_EmployeeManagement.Models.APIUserRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -235,7 +235,7 @@ namespace RestAPI_Kreatx.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("RestAPI_Kreatx.Models.APIUser", null)
+                    b.HasOne("RestAPI_EmployeeManagement.Models.APIUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -244,7 +244,7 @@ namespace RestAPI_Kreatx.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("RestAPI_Kreatx.Models.APIUser", null)
+                    b.HasOne("RestAPI_EmployeeManagement.Models.APIUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -253,13 +253,13 @@ namespace RestAPI_Kreatx.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.HasOne("RestAPI_Kreatx.Models.APIUserRole", null)
+                    b.HasOne("RestAPI_EmployeeManagement.Models.APIUserRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RestAPI_Kreatx.Models.APIUser", null)
+                    b.HasOne("RestAPI_EmployeeManagement.Models.APIUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -268,7 +268,7 @@ namespace RestAPI_Kreatx.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("RestAPI_Kreatx.Models.APIUser", null)
+                    b.HasOne("RestAPI_EmployeeManagement.Models.APIUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
