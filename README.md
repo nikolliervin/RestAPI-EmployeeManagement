@@ -17,9 +17,30 @@ The employees can have many tasks and be part of many projects.
 7. Mark a task as finished
 8. Watch all tasks from the projects they are part of.
 
+## Admins can:
+1. Create Users
+2. Update Users
+3. Delete Users
+
+4. Create Tasks
+5. Update Tasks
+6. Delete Tasks
+
+7. Add employees to projects
+8. Delete employees from projects
+
+9. Assign tasks to employees
+10. Mark tasks as completed
+11. Remove tasks
+
+12. Create Projects
+13. Update Projects
+14. Delete Projects.
+
 # Postman Documentation:
 
-https://documenter.getpostman.com/view/24887863/2s8Z6x4a19
+The full postman documentation can be found [Here](https://documenter.getpostman.com/view/24887863/2s8Z6x4a19)
+
 
 # Accounts
 
