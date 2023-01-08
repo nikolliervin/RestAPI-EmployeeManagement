@@ -2,9 +2,10 @@
 
 The purpose of this RestAPI is to manage Emoployees, Tasks and Projects.
 The employees can have many tasks and be part of many projects.
+The authentication is done with JSON Web Token and the users are managed by ASP.NET Core Identity.
 
 ###### The API users have two different roles: 
-> Admin
+> Admin and
 > Employee
 
 ## Employees can:
@@ -53,5 +54,4 @@ user01 <br/>
 user03 <br/>
 user04 <br/>
 user08 <br/>
-
 Password: Apiuser1.! <br/>
