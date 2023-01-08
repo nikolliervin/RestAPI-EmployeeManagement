@@ -4,10 +4,18 @@ The purpose of this RestAPI is to manage Emoployees, Tasks and Projects.
 The employees can have many tasks and be part of many projects.
 
 ###### The API users have two different roles: 
-> Admins
-> Employees
+> Admin
+> Employee
 
-###### Employ
+###### Employs can:
+1. Watch their profile data
+2. Update their profile data
+3. Update their profile picture
+4. Create tasks in the projects they are part of
+5. Update tasks they have
+6. Assign a task they have to another employee
+7. Mark a task as finished
+8. Watch all tasks from the projects they are part of.
 
 # Postman Documentation:
 
