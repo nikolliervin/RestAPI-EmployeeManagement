@@ -7,7 +7,7 @@ The employees can have many tasks and be part of many projects.
 > Admin
 > Employee
 
-###### Employs can:
+## Employees can:
 1. Watch their profile data
 2. Update their profile data
 3. Update their profile picture
