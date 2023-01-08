@@ -1,3 +1,14 @@
+# Overview
+
+The purpose of this RestAPI is to manage Emoployees, Tasks and Projects.
+The employees can have many tasks and be part of many projects.
+
+###### The API users have two different roles: 
+> Admins
+> Employees
+
+###### Employ
+
 # Postman Documentation:
 
 https://documenter.getpostman.com/view/24887863/2s8Z6x4a19
@@ -10,12 +21,8 @@ Password: Apiuser1.!
 
 Employees:
 user01
-user02
 user03
 user04
 user08
-user10
-user44
-user55
 
 Password: Apiuser1.!
