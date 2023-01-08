@@ -44,14 +44,14 @@ The full postman documentation can be found [Here](https://documenter.getpostman
 
 # Accounts
 
-Admin: 
-Username: admin
-Password: Apiuser1.!
+Admin: <br/>
+Username: admin <br/>
+Password: Apiuser1.! <br/>
 
-Employees:
-user01
-user03
-user04
-user08
+Employees: <br/>
+user01 <br/>
+user03 <br/>
+user04 <br/>
+user08 <br/>
 
-Password: Apiuser1.!
+Password: Apiuser1.! <br/>
